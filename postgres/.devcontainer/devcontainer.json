@@ -1,0 +1,39 @@
+{
+    "image": "pgdevcontainer:bookworm",
+    "runArgs": [
+        // "--network=host",
+        // "--ulimit=core=-1",
+        "--cap-add=SYS_ADMIN",
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined"
+    ],
+    "mounts": [
+        // You have to make sure source directory is avaliable on your host file system
+        "source=${localEnv:HOME}/freedom,target=/opt/freedom,type=bind,consistency=cached"
+    ],
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/postgres/postgres,type=bind,consistency=cached",
+    "workspaceFolder": "/home/postgres/postgres",
+    "forwardPorts": [
+        5432
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "eamodio.gitlens",
+                "github.vscode-github-actions",
+                "ms-vscode.cpptools-extension-pack",
+                "ms-vsliveshare.vsliveshare",
+                "rioj7.command-variable",
+                "74th.scrollkey"
+            ],
+            "settings": {
+                "files.exclude": {
+                    "**/*.o": true,
+                    "**/.deps/": true
+                }
+            }
+        }
+    },
+    "postCreateCommand": "bash ./.devcontainer/postCreateCommand.sh"
+}

@@ -1,0 +1,97 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "meson setup",
+            "type": "shell",
+            "command": "meson",
+            "args": [
+                "setup",
+                "build",
+                "--buildtype=debug",
+                "--prefix=/opt/freedom/pgsql",
+                "-Dcassert=true"
+            ],
+            "problemMatcher": [],
+            "detail": "meson setup debug configuration"
+        },
+        {
+            "label": "ninja build",
+            "type": "shell",
+            "command": "ninja",
+            "args":[
+                "-C",
+                "build",
+                "-j",
+                "4"
+            ],
+            "problemMatcher": [],
+            "detail": "build postgres"
+        },
+        {
+            "label": "ninja install",
+            "type": "shell",
+            "command": "ninja",
+            "args": [
+                "install",
+                "-C",
+                "build"
+            ],
+            "problemMatcher": [],
+            "detail": "install the files"
+        },
+        {
+            "label": "init cluster",
+            "type": "shell",
+            "command": "/opt/freedom/pgsql/bin/initdb",
+            "args": [
+                "-D",
+                "/opt/freedom/data"
+            ],
+            "problemMatcher": [],
+            "detail": "init cluster using initdb"
+        },
+        {
+            "label": "start cluster",
+            "type": "shell",
+            "command": "/opt/freedom/pgsql/bin/pg_ctl",
+            "args": [
+                "-D",
+                "/opt/freedom/data",
+                "-l",
+                "/opt/freedom/data/logfile",
+                "start"
+            ],
+            "problemMatcher": [],
+            "detail": "start db cluster"
+        },
+        {
+            "label": "restart cluster",
+            "type": "shell",
+            "command": "/opt/freedom/pgsql/bin/pg_ctl",
+            "args": [
+                "-D",
+                "/opt/freedom/data",
+                "-l",
+                "/opt/freedom/data/logfile",
+                "restart"
+            ],
+            "problemMatcher": [],
+            "detail": "start db cluster"
+        },
+        {
+            "label": "stop cluster",
+            "type": "shell",
+            "command": "/opt/freedom/pgsql/bin/pg_ctl",
+            "args": [
+                "-D",
+                "/opt/freedom/data",
+                "stop"
+            ],
+            "problemMatcher": [],
+            "detail": "stop db cluster"
+        }
+    ]
+}
