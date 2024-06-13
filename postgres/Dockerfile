@@ -36,6 +36,7 @@ RUN apt update && apt install -y \
     libzstd-dev \
     linux-perf \
     locales \
+    lsb-release \
     lsof \
     make \
     man \
@@ -54,6 +55,7 @@ RUN apt update && apt install -y \
     tree \
     uuid-dev \
     valgrind \
+    wget \
     zlib1g-dev \
  && apt autoremove -y \
  && apt clean
