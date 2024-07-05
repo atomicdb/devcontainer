@@ -10,6 +10,7 @@ RUN apt update && apt install -y \
     bzip2 \
     ccache \
     cpanminus \
+    cron \
     curl \
     flex \
     fswatch \

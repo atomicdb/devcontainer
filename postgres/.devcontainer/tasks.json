@@ -12,7 +12,8 @@
                 "build",
                 "--buildtype=debug",
                 "--prefix=/opt/freedom/pgsql",
-                "-Dcassert=true"
+                "-Dcassert=true",
+                "--werror"
             ],
             "problemMatcher": [],
             "detail": "meson setup debug configuration"
@@ -79,7 +80,7 @@
                 "restart"
             ],
             "problemMatcher": [],
-            "detail": "start db cluster"
+            "detail": "restart db cluster"
         },
         {
             "label": "stop cluster",
