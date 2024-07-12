@@ -51,7 +51,7 @@ EOL
 }
 
 function configure_env {
-  echo "export PATH=/opt/freedom/pgsql/bin:$PATH" >> ~/.bashrc
+  echo "export PATH=/usr/local/pgsql/bin:$PATH" >> ~/.bashrc
 }
 
 function main {

@@ -1,6 +1,7 @@
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
+    // See PostgreSQL meson doc link https://wiki.postgresql.org/wiki/Meson
     "version": "2.0.0",
     "tasks": [
         {
@@ -9,9 +10,8 @@
             "command": "meson",
             "args": [
                 "setup",
-                "build",
+                "../build",         // out of source tree
                 "--buildtype=debug",
-                "--prefix=/opt/freedom/pgsql",
                 "-Dcassert=true",
                 "--werror"
             ],
@@ -24,7 +24,7 @@
             "command": "ninja",
             "args":[
                 "-C",
-                "build",
+                "../build",
                 "-j",
                 "4"
             ],
@@ -32,24 +32,33 @@
             "detail": "build postgres"
         },
         {
+            "label": "regression tests",
+            "type": "shell",
+            "command": "meson test -C ../build -q --print-errorlogs --suite setup --suite regress",
+            "problemMatcher": [],
+            "detail": "run main regression tests"
+        },
+        {
+            "label": "check-world",
+            "type": "shell",
+            "command": "meson test -C ../build -q --print-errorlogs",
+            "problemMatcher": [],
+            "detail": "run all tests"
+        },
+        {
             "label": "ninja install",
             "type": "shell",
-            "command": "ninja",
-            "args": [
-                "install",
-                "-C",
-                "build"
-            ],
+            "command": "sudo ninja install -C ../build",
             "problemMatcher": [],
-            "detail": "install the files"
+            "detail": "install pgsql"
         },
         {
             "label": "init cluster",
             "type": "shell",
-            "command": "/opt/freedom/pgsql/bin/initdb",
+            "command": "initdb",
             "args": [
                 "-D",
-                "/opt/freedom/data"
+                "/home/postgres/pgdata"
             ],
             "problemMatcher": [],
             "detail": "init cluster using initdb"
@@ -57,12 +66,12 @@
         {
             "label": "start cluster",
             "type": "shell",
-            "command": "/opt/freedom/pgsql/bin/pg_ctl",
+            "command": "pg_ctl",
             "args": [
                 "-D",
-                "/opt/freedom/data",
+                "/home/postgres/pgdata",
                 "-l",
-                "/opt/freedom/data/logfile",
+                "/home/postgres/pgdata/logfile",
                 "start"
             ],
             "problemMatcher": [],
@@ -71,12 +80,12 @@
         {
             "label": "restart cluster",
             "type": "shell",
-            "command": "/opt/freedom/pgsql/bin/pg_ctl",
+            "command": "pg_ctl",
             "args": [
                 "-D",
-                "/opt/freedom/data",
+                "/home/postgres/pgdata",
                 "-l",
-                "/opt/freedom/data/logfile",
+                "/home/postgres/pgdata/logfile",
                 "restart"
             ],
             "problemMatcher": [],
@@ -85,10 +94,10 @@
         {
             "label": "stop cluster",
             "type": "shell",
-            "command": "/opt/freedom/pgsql/bin/pg_ctl",
+            "command": "pg_ctl",
             "args": [
                 "-D",
-                "/opt/freedom/data",
+                "/home/postgres/pgdata",
                 "stop"
             ],
             "problemMatcher": [],
