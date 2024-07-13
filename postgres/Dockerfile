@@ -67,6 +67,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 RUN cpanm install IPC::Run
+RUN cpanm https://cpan.metacpan.org/authors/id/S/SH/SHANCOCK/Perl-Tidy-20230309.tar.gz
 
 # Since gdb will run in the context of the root user when debugging, we need add
 # both .gdbinit and gdbpg.py script into root home

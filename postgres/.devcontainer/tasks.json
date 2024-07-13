@@ -131,7 +131,28 @@
             "command": "rm -rf /home/postgres/pgdata",
             "problemMatcher": [],
             "detail": "clear pgdata directory"
+        },
+        {
+            "label": "install pg_bsd_indent",
+            "type": "shell",
+            "command": "sudo cp ../build/src/tools/pg_bsd_indent/pg_bsd_indent /usr/local/bin",
+            "problemMatcher": [],
+            "detail": "install pg_bsd_indent to /usr/local/bin"
+        },
+        {
+            "label": "pgindent",
+            "type": "shell",
+            "command": "src/tools/pgindent/pgindent ${input:indent_dir}",
+            "problemMatcher": [],
+            "detail": "run pgindent"
         }
-
+    ],
+    "inputs": [
+        {
+            "id": "indent_dir",
+            "description": "indent directory related to tree root",
+            "type": "promptString",
+            "default": "src"
+        }
     ]
 }
