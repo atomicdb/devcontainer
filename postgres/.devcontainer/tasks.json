@@ -10,13 +10,35 @@
             "command": "meson",
             "args": [
                 "setup",
-                "../build",         // out of source tree
-                "--buildtype=debug",
+                "../build",             // out of source tree
+                "--buildtype=debug",    // default is debugoptimized
                 "-Dcassert=true",
+                "-Dtap_tests=enabled",
                 "--werror"
             ],
             "problemMatcher": [],
             "detail": "meson setup debug configuration"
+        },
+        {
+            "label": "meson setup release",
+            "type": "shell",
+            "command": "meson",
+            "args": [
+                "setup",
+                "../build",
+                "--buildtype=release",
+                "-Dcassert=true",
+                "--werror"
+            ],
+            "problemMatcher": [],
+            "detail": "meson setup release configuration"
+        },
+        {
+            "label": "clear build directory",
+            "type": "shell",
+            "command": "rm -rf ../build",
+            "problemMatcher": [],
+            "detail": "clear build directory"
         },
         {
             "label": "ninja build",
@@ -55,7 +77,7 @@
         {
             "label": "init cluster",
             "type": "shell",
-            "command": "initdb",
+            "command": "/usr/local/pgsql/bin/initdb",
             "args": [
                 "-D",
                 "/home/postgres/pgdata"
@@ -66,7 +88,7 @@
         {
             "label": "start cluster",
             "type": "shell",
-            "command": "pg_ctl",
+            "command": "/usr/local/pgsql/bin/pg_ctl",
             "args": [
                 "-D",
                 "/home/postgres/pgdata",
@@ -80,7 +102,7 @@
         {
             "label": "restart cluster",
             "type": "shell",
-            "command": "pg_ctl",
+            "command": "/usr/local/pgsql/bin/pg_ctl",
             "args": [
                 "-D",
                 "/home/postgres/pgdata",
@@ -94,7 +116,7 @@
         {
             "label": "stop cluster",
             "type": "shell",
-            "command": "pg_ctl",
+            "command": "/usr/local/pgsql/bin/pg_ctl",
             "args": [
                 "-D",
                 "/home/postgres/pgdata",
@@ -102,6 +124,14 @@
             ],
             "problemMatcher": [],
             "detail": "stop db cluster"
+        },
+        {
+            "label": "clear pgdata",
+            "type": "shell",
+            "command": "rm -rf /home/postgres/pgdata",
+            "problemMatcher": [],
+            "detail": "clear pgdata directory"
         }
+
     ]
 }
