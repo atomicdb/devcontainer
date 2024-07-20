@@ -142,17 +142,45 @@
         {
             "label": "pgindent",
             "type": "shell",
-            "command": "src/tools/pgindent/pgindent ${input:indent_dir}",
+            "command": "src/tools/pgindent/pgindent ${input:selectDir}",
             "problemMatcher": [],
-            "detail": "run pgindent"
+            "detail": "run pgindent on selected directory"
+        },
+        {
+            "label": "apply patch",
+            "type": "shell",
+            "command": "git am /opt/freedom/patches/${input:patchFile}",
+            "problemMatcher": [],
+            "detail": "apply patch"
         }
     ],
     "inputs": [
         {
-            "id": "indent_dir",
-            "description": "indent directory related to tree root",
+            "id": "selectDir",
+            "type": "command",
+            "command": "extension.commandvariable.pickStringRemember",
+            "args": {
+                "description": "Which directory to run for pgindent?",
+                "options": [
+                    ["Use previous directory", "${remember:srcSubDir}"],
+                    ["Pick directory", "${pickFile:srcSubDir}"]
+                ],
+                "default": null,
+                "pickFile": {
+                    "srcSubDir": {
+                        "description": "Which directory?",
+                        "include": "src/**",
+                        "showDirs": true,
+                        "keyRemember": "srcSubDir"
+                    }
+                }
+            }
+        },
+        {
+            "id": "patchFile",
+            "description": "Which patch file to apply?",
             "type": "promptString",
-            "default": "src"
+            "default": "*"
         }
     ]
 }
