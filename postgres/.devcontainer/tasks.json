@@ -147,11 +147,25 @@
             "detail": "run pgindent on selected directory"
         },
         {
+            "label": "format patch",
+            "type": "shell",
+            "command": "git format-patch -o /opt/freedom/patches -${input:formatPatchNumber} -v ${input:formatPatchVersion}",
+            "problemMatcher": [],
+            "detail": "generate patches from the topmost <n> commits"
+        },
+        {
             "label": "apply patch",
             "type": "shell",
             "command": "git am /opt/freedom/patches/${input:patchFile}",
             "problemMatcher": [],
             "detail": "apply patch"
+        },
+        {
+            "label": "clear patch directory",
+            "type": "shell",
+            "command": "rm -rf /opt/freedom/patches/*",
+            "problemMatcher": [],
+            "detail": "clear patch directory"
         }
     ],
     "inputs": [
@@ -175,6 +189,18 @@
                     }
                 }
             }
+        },
+        {
+            "id": "formatPatchNumber",
+            "description": "patches from the topmost <n> commits",
+            "type": "promptString",
+            "default": "1"
+        },
+        {
+            "id": "formatPatchVersion",
+            "description": "<n>-th iteration of the topic",
+            "type": "promptString",
+            "default": "1"
         },
         {
             "id": "patchFile",
