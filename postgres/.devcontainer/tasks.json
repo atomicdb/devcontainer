@@ -166,6 +166,13 @@
             "command": "rm -rf /opt/freedom/patches/*",
             "problemMatcher": [],
             "detail": "clear patch directory"
+        },
+        {
+            "label": "generate flamegraph",
+            "type": "shell",
+            "command": "perf record -o ../perf_${input:processId}.data -g -F 99 -p ${input:processId} -- sleep 60 && perf script -i ../perf_${input:processId}.data | /opt/freedom/tools/FlameGraph/stackcollapse-perf.pl | /opt/freedom/tools/FlameGraph/flamegraph.pl > /opt/freedom/perf_${input:processId}.svg",
+            "problemMatcher": [],
+            "detail": "generate flamegraph"
         }
     ],
     "inputs": [
@@ -207,6 +214,12 @@
             "description": "Which patch file to apply?",
             "type": "promptString",
             "default": "*"
+        },
+        {
+            "id": "processId",
+            "description": "Which process to perf?",
+            "type": "promptString",
+            "default": ""
         }
     ]
 }

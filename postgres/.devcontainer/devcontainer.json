@@ -6,7 +6,8 @@
         "--cap-add=SYS_ADMIN",
         "--cap-add=SYS_PTRACE",
         "--security-opt",
-        "seccomp=unconfined"
+        "seccomp=unconfined",
+        "--privileged"
     ],
     "mounts": [
         // You have to make sure source directory is avaliable on your host file system
@@ -33,7 +34,13 @@
                 "files.exclude": {
                     "**/*.o": true,
                     "**/.deps/": true
-                }
+                },
+                // "terminal.integrated.env.linux": {
+                //     "PATH": "/usr/local/pgsql/bin:$PATH"
+                // },
+                "C_Cpp.default.cStandard": "c99",
+                "C_Cpp.default.cppStandard": "c++17",
+                "C_Cpp.default.browse.databaseFilename": "${workspaceFolder}/.vscode/.browse.c_cpp.db"
             }
         }
     },

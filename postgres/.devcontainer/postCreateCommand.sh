@@ -55,10 +55,20 @@ function configure_env {
   echo "export PATH=/usr/local/pgsql/bin:$PATH" >> ~/.bashrc
 }
 
+function configure_perf {
+  sudo sh -c "echo 0 > /proc/sys/kernel/kptr_restrict"
+  sudo su -c "echo -1 > /proc/sys/kernel/perf_event_paranoid"
+
+  if [ ! -d /opt/freedom/tools/FlameGraph ]; then
+    git clone https://github.com/brendangregg/FlameGraph.git /opt/freedom/tools/FlameGraph
+  fi
+}
+
 function main {
   configure_git
   configure_vscode
   configure_env
+  configure_perf
 }
 
 main $@
