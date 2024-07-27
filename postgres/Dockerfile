@@ -85,6 +85,9 @@ RUN useradd -ms /bin/bash postgres \
 WORKDIR /home/postgres
 USER postgres
 
+# install rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
 COPY --chown=postgres:postgres .psqlrc .
 
 RUN sudo mkdir -p /opt/freedom \
