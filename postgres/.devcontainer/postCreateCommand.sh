@@ -66,11 +66,18 @@ function configure_pg_plugins {
   fi
 }
 
+function install_whatever_you_need {
+  sudo apt update
+  # pgrx requires libclang-dev
+  sudo apt install -y libclang-dev
+}
+
 function main {
   configure_git
   configure_vscode
   configure_perf
   configure_pg_plugins
+  install_whatever_you_need
 }
 
 main $@
