@@ -13,6 +13,7 @@
                 "../build",             // out of source tree
                 "--prefix=/home/postgres/pgsql",
                 "--buildtype=debug",    // default is debugoptimized
+                "-Dc_args=-fno-inline-functions -fno-omit-frame-pointer -DCOPY_PARSE_PLAN_TREES -DWRITE_READ_PARSE_PLAN_TREES -DRAW_EXPRESSION_COVERAGE_TEST -DENFORCE_REGRESSION_TEST_NAME_RESTRICTIONS",
                 "-Dcassert=true",
                 "-Dtap_tests=enabled",
                 "--werror"
