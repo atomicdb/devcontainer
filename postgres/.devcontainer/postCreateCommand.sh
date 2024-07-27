@@ -51,10 +51,6 @@ EOL
   cp .devcontainer/tasks.json .vscode/
 }
 
-function configure_env {
-  echo "export PATH=/usr/local/pgsql/bin:$PATH" >> ~/.bashrc
-}
-
 function configure_perf {
   sudo sh -c "echo 0 > /proc/sys/kernel/kptr_restrict"
   sudo su -c "echo -1 > /proc/sys/kernel/perf_event_paranoid"
@@ -64,11 +60,17 @@ function configure_perf {
   fi
 }
 
+function configure_pg_plugins {
+  if [ ! -d /opt/freedom/extensions/pg_plugins ]; then
+    git clone https://github.com/michaelpq/pg_plugins.git /opt/freedom/extensions/pg_plugins
+  fi
+}
+
 function main {
   configure_git
   configure_vscode
-  configure_env
   configure_perf
+  configure_pg_plugins
 }
 
 main $@

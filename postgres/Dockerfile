@@ -54,10 +54,12 @@ RUN apt update && apt install -y \
     sudo \
     tmux \
     tree \
+    unzip \
     uuid-dev \
     valgrind \
     wget \
     zlib1g-dev \
+ && apt remove libpq-dev -y \
  && apt autoremove -y \
  && apt clean
 
@@ -88,5 +90,6 @@ COPY --chown=postgres:postgres .psqlrc .
 RUN sudo mkdir -p /opt/freedom \
  && sudo chown -R postgres:postgres /opt/freedom
 
+ENV PATH="/home/postgres/pgsql/bin:$PATH"
 ENV PGPORT=5432
 EXPOSE 5432

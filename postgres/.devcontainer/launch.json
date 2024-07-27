@@ -6,8 +6,8 @@
             "type": "cppdbg",
             "request": "attach",
             "processId": "${command:pickProcess}",
-            "program": "/usr/local/pgsql/bin/postgres",
-            "additionalSOLibSearchPath": "/usr/local/pgsql/lib",
+            "program": "/home/postgres/pgsql/bin/postgres",
+            "additionalSOLibSearchPath": "/home/postgres/pgsql/lib",
             "setupCommands": [
                 {
                     "text": "handle SIGUSR1 noprint nostop pass",
@@ -20,7 +20,7 @@
             "name": "(gdb) Open core file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/usr/local/pgsql/bin/postgres",
+            "program": "/home/postgres/pgsql/bin/postgres",
             "coreDumpPath": "${input:corefile}",
             "cwd": "${workspaceFolder}",
             "MIMode": "gdb"

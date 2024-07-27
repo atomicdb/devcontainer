@@ -11,6 +11,7 @@
             "args": [
                 "setup",
                 "../build",             // out of source tree
+                "--prefix=/home/postgres/pgsql",
                 "--buildtype=debug",    // default is debugoptimized
                 "-Dcassert=true",
                 "-Dtap_tests=enabled",
@@ -26,6 +27,7 @@
             "args": [
                 "setup",
                 "../build",
+                "--prefix=/home/postgres/pgsql",
                 "--buildtype=release",
                 "-Dcassert=true",
                 "--werror"
@@ -70,14 +72,14 @@
         {
             "label": "ninja install",
             "type": "shell",
-            "command": "sudo ninja install -C ../build",
+            "command": "ninja install -C ../build",
             "problemMatcher": [],
             "detail": "install pgsql"
         },
         {
             "label": "init cluster",
             "type": "shell",
-            "command": "/usr/local/pgsql/bin/initdb",
+            "command": "/home/postgres/pgsql/bin/initdb",
             "args": [
                 "-D",
                 "/home/postgres/pgdata"
@@ -88,7 +90,7 @@
         {
             "label": "start cluster",
             "type": "shell",
-            "command": "/usr/local/pgsql/bin/pg_ctl",
+            "command": "/home/postgres/pgsql/bin/pg_ctl",
             "args": [
                 "-D",
                 "/home/postgres/pgdata",
@@ -102,7 +104,7 @@
         {
             "label": "restart cluster",
             "type": "shell",
-            "command": "/usr/local/pgsql/bin/pg_ctl",
+            "command": "/home/postgres/pgsql/bin/pg_ctl",
             "args": [
                 "-D",
                 "/home/postgres/pgdata",
@@ -116,7 +118,7 @@
         {
             "label": "stop cluster",
             "type": "shell",
-            "command": "/usr/local/pgsql/bin/pg_ctl",
+            "command": "/home/postgres/pgsql/bin/pg_ctl",
             "args": [
                 "-D",
                 "/home/postgres/pgdata",
