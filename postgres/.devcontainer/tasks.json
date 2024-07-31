@@ -176,6 +176,13 @@
             "command": "perf record -o ../perf_${input:processId}.data -g -F 99 -p ${input:processId} -- sleep 60 && perf script -i ../perf_${input:processId}.data | /opt/freedom/tools/FlameGraph/stackcollapse-perf.pl | /opt/freedom/tools/FlameGraph/flamegraph.pl > /opt/freedom/perf_${input:processId}.svg",
             "problemMatcher": [],
             "detail": "generate flamegraph"
+        },
+        {
+            "label": "generate core",
+            "type": "shell",
+            "command": "kill -ABRT ${input:processId}",
+            "problemMatcher": [],
+            "detail": "generate coredump file"
         }
     ],
     "inputs": [
@@ -220,7 +227,7 @@
         },
         {
             "id": "processId",
-            "description": "Which process to perf?",
+            "description": "Which process?",
             "type": "promptString",
             "default": ""
         }

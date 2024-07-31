@@ -51,6 +51,11 @@ EOL
   cp .devcontainer/tasks.json .vscode/
 }
 
+# https://wiki.postgresql.org/wiki/Getting_a_stack_trace_of_a_running_PostgreSQL_backend_on_Linux/BSD
+function configure_coredumps {
+  sudo sh -c "echo 'core.%p.sig%s.%ts' > /proc/sys/kernel/core_pattern"
+}
+
 function configure_perf {
   sudo sh -c "echo 0 > /proc/sys/kernel/kptr_restrict"
   sudo su -c "echo -1 > /proc/sys/kernel/perf_event_paranoid"
@@ -73,6 +78,7 @@ function install_whatever_you_need {
 }
 
 function main {
+  configure_coredumps
   configure_git
   configure_vscode
   configure_perf
